@@ -1,0 +1,139 @@
+* {
+	box-sizing: border-box;
+	user-select: none;
+	font-family: "Nunito", sans-serif;
+}
+
+:root {
+	--light: #fff;
+	--blue: rgba(14, 75, 116, 0.991);
+	--cell: rgba(120, 39, 234, 0.253);
+}
+
+body {
+	margin: 0;
+	height: 100vh;
+	background-image: url(731111d77e61cec5b647.jpeg);
+	display: grid;
+	place-items: center;
+}
+
+.container {
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+}
+
+.container .title {
+	color: var(--light);
+}
+
+#board {
+	width: 610px;
+	height: 610px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	background-color: var(--light);
+	gap: 2px;
+	padding: 2px;
+}
+
+.cell {
+	position: relative;
+	display: grid;
+	place-items: center;
+	font-size: 60px;
+	background-color: var(--cell);
+	cursor: pointer;
+	transition: transform 0.03s linear;
+}
+
+.cell:active {
+	transform: scale(0.95);
+}
+
+.cell.winner {
+	background-color: var(--blue);
+}
+.cell::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-image: url(5d96709d6a30764d3bec.jpeg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position-x: -35px;
+	opacity: 1;
+	transition: opacity 0.3s linear;
+}
+
+.active::before,
+.winner::before {
+	opacity: 0;
+}
+
+.active,
+.winner {
+	pointer-events: none;
+}
+
+.level {
+	color: white;
+	font-size: 70px;
+	margin: 0;
+	font-weight: bold;
+}
+.iconNumber {
+	font-size: 30px;
+	color: white;
+	margin: 0;
+}
+.timer {
+	position: absolute;
+	font-size: 100px;
+	color: white;
+	padding: 0;
+	margin-right: 1000px;
+	margin-top: -300px;
+}
+
+.restart {
+	display: none;
+	width: 300px;
+	height: 400px;
+	margin-bottom: 500px;
+	text-align: center;
+	color: white;
+	background: none;
+	font-size: 50px;
+	font-weight: bold;
+	border: 1px solid #fff;
+	border-radius: 20px;
+}
+.restart-btn {
+	width: 100px;
+	height: 60px;
+	background: none;
+	font-size: 50px;
+	border: none;
+	cursor: pointer;
+	transition: transform 0.1s linear;
+}
+
+.restart-btn:active {
+	transform: scale(0.88);
+}
+
+.over {
+	display: none;
+	font-size: 80px;
+	font-weight: bold;
+	color: white;
+	letter-spacing: 20px;
+}
+

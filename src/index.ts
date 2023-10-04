@@ -17,9 +17,7 @@ let cells: string[] = [];
 let correctAnswers = 0;
 let count: number = 0;
 let count2: number = 0;
-
-// let s = 20;
-let countdownInterval: any;
+let s = 20;
 
 // HANDLE FUNCTIONS
 function handleCell(cell: HTMLDivElement, cellIdx: number) {
@@ -34,9 +32,8 @@ function handleCell(cell: HTMLDivElement, cellIdx: number) {
 	cell.classList.add("active");
 
 	if (correctAnswers === numberIcons + count2) {
-		// sekund = "";
-		time();
-		setTimeout(init, 1000);
+		s = 20;
+		setTimeout(init, 0);
 		count++;
 
 		if (count % 2 === 0) {
@@ -49,21 +46,22 @@ function handleCell(cell: HTMLDivElement, cellIdx: number) {
 	}
 }
 
-function handelRestartBtn(): void {
-	btnRestart.addEventListener("click", () => {
-		restartBtn.style.display = "none";
-		container.style.display = "flex";
-		gameOver.style.display = "none";
-		count = 0;
-		count2 = 0;
-		level = 0;
-		numberCells = 9;
-		numberIcons = 3;
-		boardElm.style.gridTemplateColumns = `repeat(3, 1fr)`;
-		boardElm.style.gridTemplateRows = `repeat(3, 1fr)`;
-		init();
-	});
-}
+btnRestart.addEventListener("click", () => {
+	boardElm.innerHTML = "";
+	s = 20;
+	restartBtn.style.display = "none";
+	container.style.display = "flex";
+	gameOver.style.display = "none";
+	count = 0;
+	count2 = 0;
+	level = 0;
+	numberCells = 9;
+	numberIcons = 3;
+	boardElm.style.gridTemplateColumns = `repeat(3, 1fr)`;
+	boardElm.style.gridTemplateRows = `repeat(3, 1fr)`;
+	init();
+	time();
+});
 
 // RENDER FUNCTIONS
 function renderCells() {
@@ -88,13 +86,18 @@ function renderCells() {
 	setTimeout(() => {
 		for (const cellElm of initCellElms) cellElm.classList.remove("active");
 	}, 1000);
+	level++;
+	levelElm.innerText = `Level-${level}`;
 }
 
 function time() {
-	let s = 20;
+	s = 20;
 	let sekund = setInterval(() => {
 		if (s === 0) {
 			clearInterval(sekund);
+			restartBtn.style.display = "block";
+			container.style.display = "none";
+			gameOver.style.display = "block";
 			timer.innerText = `00 : ${s < 10 ? "0" + s : s}`;
 		} else {
 			timer.innerText = `00 : ${s < 10 ? "0" + s : s}`;
@@ -105,9 +108,6 @@ function time() {
 
 // LOGIC FUNCTIONS
 function init() {
-	level++;
-	levelElm.innerText = `Level-${level}`;
-
 	correctAnswers = 0;
 	cells = new Array(numberIcons + count2).fill("🍎");
 	const stayCells = new Array(numberCells - (numberIcons + count2)).fill("");
@@ -115,8 +115,8 @@ function init() {
 	cells = [...cells, ...stayCells].sort(() => Math.random() - 0.5);
 
 	renderCells();
-	time();
-	handelRestartBtn();
+	// time();
 }
 
+time();
 init();
